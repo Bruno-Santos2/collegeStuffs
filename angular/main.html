@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app="Store">
+  <head>
+    <script type="text/javascript" src="angular.min.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+  </head>
+  <body class="list-group" ng-controller="StoreController as store">
+    <header>
+      <h1>The Gem Store</h1>
+    </header>
+    <div ng-repeat="product in store.products | orderBy: '+price'">
+      <h3>
+        {{product.name}}
+        <em>{{product.price | currency}}</em>
+      </h3>
+      <section>
+        <img style="height: 100px; width: 100px;" ng-src="{{product.images[0]}}" />
+      </section>
+      <section class="tab" ng-controller="TabController as tab">
+        <ul>
+          <li ng-class="{ active: tab.isSet(1)}">
+            <a href ng-click="tab.setTab(1)">Description</a></li>
+          <li ng-class="{ active: tab.isSet(2)}">
+            <a href ng-click="tab.setTab(2)">Specs</a></li>
+          <li ng-class="{ active: tab.isSet(3)}">
+            <a href ng-click="tab.setTab(3)">Reviews</a></li>
+        </ul>
+        <div ng-show="tab.isSet(1)">
+          <h4>Description</h4>
+          <blockquote>{{product.description}}</blockquote>
+        </div>
+        <div ng-show="tab.isSet(2)">
+          <h4>Specs</h4>
+          <blockquote>Shine: {{product.shine}}</blockquote>
+        </div>
+        <div ng-show="tab.isSet(3)">
+          <h4>Reviews</h4>
+          <blockquote></blockquote>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>
